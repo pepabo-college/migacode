@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<p>
+<h1>
+  <%= @issue.title %>
+</h1>
+<h3>投稿者名：<%= @issue.author %></h3>
+<div>
+  <%= @issue.content %>
+</div>
+</p>
+
+<%= link_to 'Edit', edit_issue_path(@issue) %> |
