@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  resources :issues
+  root 'issues#index'
 end
