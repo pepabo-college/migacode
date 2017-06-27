@@ -5,7 +5,27 @@
 </h1>
 <h3>投稿者名：<%= @issue.author %></h3>
 <div>
-  <%= @issue.content %>
+  <%= simple_format(@issue.content) %>
 </div>
-</p>
 
+<div class="container">
+    <%= form_tag("/issues/#{@issue.id}/replies", method: :post) do %>
+      <textarea cols="30" name="content" placeholder="コード" rows="2"></textarea>
+      <textarea cols="30" name="author" placeholder="送信者" rows="2"></textarea>
+      <input type="submit" value="SENT">
+    <% end %>
+</div>
+
+<div class="comments">
+  <h4>＜返信一覧＞</h4>
+  <% if @replies %>
+    <% @replies.each do |reply| %>
+      <p>
+        <strong><%= reply.author %>：</strong>
+        <%= simple_format(reply.content) %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+
+</p>

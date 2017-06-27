@@ -6,6 +6,7 @@ class IssuesController < ApplicationController
   end
 
   def show
+    @replies = @issue.replies
   end
 
   def new
