@@ -4,11 +4,11 @@ RSpec.describe IssuesController, type: :controller do
 
   describe 'GET #index' do
 
-    it 'リクエストが200 OKとなること'  do
+    it 'リクエストが200 OKとなる'  do
       expect(response.status).to eq 200
     end
 
-    it "indexテンプレートが表示されること" do
+    it "indexテンプレートが表示される" do
       get :index
       expect(response).to render_template :index
     end
@@ -17,12 +17,12 @@ RSpec.describe IssuesController, type: :controller do
 
   describe 'GET #new' do
 
-    it 'リクエストが200 OKとなること' do
+    it 'リクエストが200 OKとなる' do
       get :new
       expect(response.status).to eq 200
     end
 
-    it "newテンプレートが表示されること" do
+    it "newテンプレートが表示される" do
       get :new
       expect(response).to render_template :new
     end
@@ -32,12 +32,12 @@ RSpec.describe IssuesController, type: :controller do
   describe 'GET #edit' do
     let(:issue) { create(:issue) }
 
-    it 'リクエストが200 OKとなること' do
+    it 'リクエストが200 OKとなる' do
       get :edit, params: {id: issue.id}
       expect(response.status).to eq 200
     end
 
-    it "editテンプレートが表示されること" do
+    it "editテンプレートが表示される" do
       get :edit, params: {id: issue.id}
       expect(response).to render_template :edit
     end
@@ -46,12 +46,12 @@ RSpec.describe IssuesController, type: :controller do
   describe 'GET #show' do
     let(:issue) { create(:issue) }
 
-    it 'リクエストは200 OKとなること'  do
+    it 'リクエストは200 OKとなる'  do
       get :show, params: {id: issue.id}
       expect(response.status).to eq 200
     end
 
-    it "show.html.erbテンプレートが表示されること" do
+    it "show.html.erbテンプレートが表示される" do
       get :show, params: {id: issue.id}
       expect(response).to render_template :show
     end
@@ -69,7 +69,7 @@ RSpec.describe IssuesController, type: :controller do
       }.to change(Issue, :count).by(-1)
     end
 
-    it 'リクエスト302 リダイレクトになること' do
+    it 'リクエスト302 リダイレクトになる' do
       process :destroy, method: :delete, params: { id: @issue.id }
       expect(response.status).to eq 302
     end
@@ -80,5 +80,29 @@ RSpec.describe IssuesController, type: :controller do
     end
   end
 
+
+  describe 'POST #create' do
+    let(:issue) { create(:issue) }
+    context '有効な属性の場合' do
+      it 'データベースに新しい課題を保存' do
+        expect{
+          process :create, method: :post,
+            params: { issue: attributes_for(:issue) }
+        }.to change(Issue, :count).by(1)
+      end
+
+      it 'リクエストは302 リダイレクトとなる' do
+        process :create, method: :post,
+          params: { issue: attributes_for(:issue) }
+        expect(response.status).to eq 302
+      end
+
+      it "showページにリダイレクト" do
+        process :create, method: :post,
+          params: { issue: attributes_for(:issue) }
+        expect(response).to redirect_to issue_path(assigns[:issue])
+      end
+    end
+  end
 
 end
