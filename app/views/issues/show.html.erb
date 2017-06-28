@@ -1,11 +1,40 @@
 <p id="notice"><%= notice %></p>
-<p>
 <h1>
   <%= @issue.title %>
 </h1>
 <h3>投稿者名：<%= @issue.author %></h3>
 <div>
-  <%= @issue.content %>
+  <%= simple_format(@issue.content) %>
 </div>
-</p>
 
+<div class="container">
+
+  <%= form_for([ @issue, @reply ]) do |f| %>
+
+    <% if @reply.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @reply.errors.messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.text_area :content, placeholder: "コード", cols: "30", rows: "2" %>
+    <%= f.text_area :author, placeholder: "送信者", cols: "30", rows: "2" %>
+    <%= f.submit "返信" %>
+  <% end %>
+
+  <div class="replies">
+    <h4>＜返信一覧＞</h4>
+    <% if @replies %>
+      <% @replies.each do |reply| %>
+        <p>
+          <strong><%= reply.author %>：</strong>
+          <%= simple_format(reply.content) %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

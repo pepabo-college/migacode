@@ -1,4 +1,5 @@
 class Issue < ApplicationRecord
+  has_many :replies
   validates :title, :content, :author, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :mail_address, presence: true, format: { with: VALID_EMAIL_REGEX }, if: :notificate_to_author?
