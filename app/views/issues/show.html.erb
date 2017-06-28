@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-<p>
 <h1>
   <%= @issue.title %>
 </h1>
@@ -9,23 +8,23 @@
 </div>
 
 <div class="container">
-    <%= form_tag("/issues/#{@issue.id}/replies", method: :post) do %>
-      <textarea cols="30" name="content" placeholder="コード" rows="2"></textarea>
-      <textarea cols="30" name="author" placeholder="送信者" rows="2"></textarea>
-      <input type="submit" value="SENT">
-    <% end %>
-</div>
 
-<div class="comments">
-  <h4>＜返信一覧＞</h4>
-  <% if @replies %>
-    <% @replies.each do |reply| %>
-      <p>
-        <strong><%= reply.author %>：</strong>
-        <%= simple_format(reply.content) %>
-      </p>
-    <% end %>
+  <%= form_for([ @issue, @reply ]) do |f| %>
+
+    <%= f.text_area :content, placeholder: "コード", cols: "30", rows: "2" %>
+    <%= f.text_area :author, placeholder: "送信者", cols: "30", rows: "2" %>
+    <%= f.submit "返信" %>
   <% end %>
-</div>
 
-</p>
+  <div class="replies">
+    <h4>＜返信一覧＞</h4>
+    <% if @replies %>
+      <% @replies.each do |reply| %>
+        <p>
+          <strong><%= reply.author %>：</strong>
+          <%= simple_format(reply.content) %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
