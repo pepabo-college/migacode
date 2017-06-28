@@ -11,6 +11,16 @@
 
   <%= form_for([ @issue, @reply ]) do |f| %>
 
+    <% if @reply.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @reply.errors.messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= f.text_area :content, placeholder: "コード", cols: "30", rows: "2" %>
     <%= f.text_area :author, placeholder: "送信者", cols: "30", rows: "2" %>
     <%= f.submit "返信" %>
