@@ -1,6 +1,4 @@
 FactoryGirl.define do
-  Faker::Config.locale = :ja
-
   factory :issue do
     title Faker::Book.title
     mail_address Faker::Internet.email
