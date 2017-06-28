@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626023743) do
+ActiveRecord::Schema.define(version: 20170627023812) do
 
   create_table "issues", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", null: false
     t.string "mail_address"
     t.text "content", null: false
     t.boolean "notification_flg", default: false, null: false
+    t.string "author", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "replies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "issue_id"
+    t.text "content", null: false
     t.string "author", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
