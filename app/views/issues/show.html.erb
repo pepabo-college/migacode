@@ -4,7 +4,7 @@
 </h1>
 <h3>投稿者名：<%= @issue.author %></h3>
 <div>
-  <%= simple_format(@issue.content) %>
+  <%= html(@issue.content) %>
 </div>
 
 <div class="container">
@@ -32,7 +32,7 @@
       <% @replies.each do |reply| %>
         <p>
           <strong><%= reply.author %>：</strong>
-          <%= simple_format(reply.content) %>
+          <%= html(reply.content) %>
         </p>
       <% end %>
     <% end %>
