@@ -6,6 +6,10 @@ class RepliesController < ApplicationController
     @replies = @issue.replies
     respond_to do |format|
       if @reply.save
+        if @issue.notification_flg == true
+          NotificationMailer.notificate_to_author(@issue).deliver_now
+        end
+
         format.html { redirect_to @issue, notice: '返信しました' }
       else
         format.html { render "issues/show" }
