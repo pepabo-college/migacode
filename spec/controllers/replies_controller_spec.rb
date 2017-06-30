@@ -8,12 +8,6 @@ RSpec.describe RepliesController, type: :controller do
     end
 
     context '有効な属性の場合' do
-      it 'データベースに新しいユーザーを保存' do
-        expect{
-          process :create, method: :post,
-            params: { issue_id: @issue.id, reply: attributes_for(:reply) }
-        }.to change(Reply, :count).by(1)
-      end
 
       it "showページにリダイレクト" do
         process :create, method: :post,
