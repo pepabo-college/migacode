@@ -19,7 +19,7 @@ feature 'ページ遷移' do
 end
 
 feature '登録機能' do
-  scenario 'コードを投稿する' do
+  scenario 'コードを投稿し、Showページにリダイレクトする' do
     visit new_issue_path
     fill_in 'issue_title', with: 'テスト投稿'
     fill_in 'issue_content', with: ' ```Ruby \ def test \ puts("test") \ end \ ```'
@@ -27,6 +27,16 @@ feature '登録機能' do
 
     click_button 'Create Issue'
     expect(page).to have_content '課題を作成しました'
+  end
+
+  scenario '無効な値でコードを投稿し、show.html.erbテンプレートが表示される' do
+    visit new_issue_path
+    fill_in 'issue_title', with: nil
+    fill_in 'issue_content', with: ' ```Ruby \ def test \ puts("test") \ end \ ```'
+    fill_in 'issue_author', with: 'test_user'
+
+    click_button 'Create Issue'
+    expect(page).to have_content "入力に誤りがあります"
   end
 
 end
