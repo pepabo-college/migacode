@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      issue: 課題
+      reply: 返信
+    attributes:
+      issue:
+        id: ID
+        created_at: 登録日時
+        updated_at: 更新日時
+        title: タイトル
+        mail_address: メールアドレス
+        content: コード
+        author: 投稿者名
+      reply:
+        id: ID
+        created_at: 登録日時
+        updated_at: 更新日時
+        content: コード
+        author: 投稿者名

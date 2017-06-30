@@ -14,9 +14,10 @@
   <%= form_for([ @issue, @reply ]) do |f| %>
 
     <% if @reply.errors.any? %>
-      <div id="error_explanation">
+      <div id="error_explanation" class="alert alert-danger">
+        <h4>入力に誤りがあります</h4>
         <ul>
-          <% @reply.errors.messages.each do |message| %>
+          <% @reply.errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
         </ul>

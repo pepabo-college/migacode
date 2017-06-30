@@ -40,6 +40,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 # Use jQuery
 gem 'jquery-rails'
 
+# Use rails-i18n
+gem 'rails-i18n'
+
 # Use redcarpet
 gem "redcarpet"
 
@@ -56,6 +59,7 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'faker'
+  gem 'email_spec'
 end
 
 group :development do
