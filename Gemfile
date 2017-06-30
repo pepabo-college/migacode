@@ -40,6 +40,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 # Use jQuery
 gem 'jquery-rails'
 
+# Use rails-i18n
+gem 'rails-i18n'
+
 # Use redcarpet
 gem "redcarpet"
 
