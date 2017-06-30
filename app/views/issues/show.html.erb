@@ -1,14 +1,16 @@
+<div class="container center-block">
+<h1>migacode</h1>
 <p id="notice"><%= notice %></p>
-<h1>
-  <%= @issue.title %>
-</h1>
-<h3>投稿者名：<%= @issue.author %></h3>
-<div>
-  <%= simple_format(@issue.content) %>
+<div class="issue">
+<h2>
+  課題：<%= @issue.title %>
+</h2>
+<h5>投稿者名：<%= @issue.author %></h5>
+<h3>改善したいコード</h3>
+  <%= html(@issue.content) %>
 </div>
 
-<div class="container">
-
+<h4>Leave a comment:</h4>
   <%= form_for([ @issue, @reply ]) do |f| %>
 
     <% if @reply.errors.any? %>
@@ -21,8 +23,8 @@
       </div>
     <% end %>
 
-    <%= f.text_area :content, placeholder: "コード", cols: "30", rows: "2" %>
-    <%= f.text_area :author, placeholder: "送信者", cols: "30", rows: "2" %>
+    <%= f.text_field :author, placeholder: "投稿者名" %><br>
+    <%= f.text_area :content, placeholder: "コード", cols: "60", rows: "15" %><br>
     <%= f.submit "返信" %>
   <% end %>
 
@@ -30,11 +32,12 @@
     <h4>＜返信一覧＞</h4>
     <% if @replies %>
       <% @replies.each do |reply| %>
-        <p>
+        <div class="reply">
           <strong><%= reply.author %>：</strong>
-          <%= simple_format(reply.content) %>
-        </p>
+          <%= html(reply.content) %>
+        </div>
       <% end %>
     <% end %>
   </div>
+  <%= link_to '一覧へ戻る', issues_path, { :class => "btn btn-primary" } %>
 </div>
