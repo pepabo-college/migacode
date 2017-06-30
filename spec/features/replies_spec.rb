@@ -31,7 +31,9 @@ feature '登録機能' do
     visit issues_path
     click_link 'テスト投稿'
     fill_in 'reply_author', with: "test_reply_user"
-    fill_in 'reply_content', with: ' ```Ruby \ def test \ puts("test") \ end \ ```'
+    fill_in 'reply_content', with: ' ```Ruby \ puts("test_post") ``` '
+    click_button '返信する'
+    expect(page).to have_content 'puts("test_post")'
   end
 
   scenario '無効な値でコードを投稿し、show.html.erbテンプレートが表示される' do
@@ -40,8 +42,7 @@ feature '登録機能' do
     visit issues_path
     click_link 'テスト投稿'
     fill_in 'reply_author', with: nil
-    fill_in 'reply_content', with: ' ```Ruby \ def test \ puts("test") \ end \ ```'
-
+    fill_in 'reply_content', with: ' ```Ruby \ puts("test_post") ``` '
     click_button '返信する'
     expect(page).to have_content "入力に誤りがあります"
   end
