@@ -1,3 +1,5 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.js'></script>  
+<script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js'></script>
 <%= form_for(@issue) do |f| %>
 
 <% if @issue.errors.any? %>
@@ -11,17 +13,32 @@
   </div>
 <% end %>
         <br style="clear:both">
-        <div class="form-group">
+        <div class="form-group" id="editor">
               <%= f.label 'タイトル' %><br>
               <%= f.text_field :title %><br>
-              <%= f.label 'コード' %><br>
-              <%= f.text_area :content , cols: "60", rows: "15"%><br>
               <%= f.label '投稿者名' %><br>
               <%= f.text_field :author %><br>
               <%= f.label 'メールアドレス' %><br>
               <%= f.text_field :mail_address %><br>
               <%= f.label '返信があったらメールで通知する' %>
               <%= f.check_box :notification_flg %><br>
+              <%= f.label 'コード' %><br>
+              <%= f.text_area :content , cols: "60", rows: "15","v-model": "input","debounce":"'50'"%><br>
+              <div v-html='input | marked'></div>
               <%= f.submit "投稿する" , :class => 'btn btn-default' %>
-            </div>
+          </div>
+
 <% end %>
+<script type="text/javascript">
+  window.onload = function() {
+    new Vue({
+      el: '#editor',
+      data: {
+        input: '<%== j @issue.content %>',
+      },
+      filters: {
+        marked: marked,
+      },
+    });
+  };
+</script>

@@ -1,3 +1,5 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.js'></script>  
+<script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js'></script>
 <div class="container center-block">
 <h1>migacode</h1>
 <p id="notice"><%= notice %></p>
@@ -5,29 +7,10 @@
 <h2>
   課題：<%= @issue.title %>
 </h2>
-<h5>投稿者名：<%= @issue.author %></h5>
+<h5>投稿者名：<%= @issue.author %></h7>
 <h3>改善したいコード</h3>
   <%= html(@issue.content) %>
 </div>
-
-<h4>Leave a comment:</h4>
-  <%= form_for([ @issue, @reply ]) do |f| %>
-
-    <% if @reply.errors.any? %>
-      <div id="error_explanation" class="alert alert-danger">
-        <h4>入力に誤りがあります</h4>
-        <ul>
-          <% @reply.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <%= f.text_field :author, placeholder: "投稿者名" %><br>
-    <%= f.text_area :content, placeholder: "コード", cols: "60", rows: "15" %><br>
-    <%= f.submit "返信する" ,:class => 'btn btn-default' %>
-  <% end %>
 
   <div class="replies">
     <h4>＜返信一覧＞</h4>
@@ -40,5 +23,41 @@
       <% end %>
     <% end %>
   </div>
+<h4>Leave a comment:</h4>
+
+    <% if @reply.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <h4>入力に誤りがあります</h4>
+        <ul>
+          <% @reply.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <%= form_for([ @issue, @reply ]) do |f| %>
+    <div id='editor'>
+    <%= f.text_field :author, placeholder: "投稿者名" %><br>
+    <%= f.text_area :content, placeholder: "コード", cols: "60", rows: "15","v-model": "input","debounce":"'50'"  %><br>
+    <div v-html='input | marked'></div>
+<script type="text/javascript">
+  window.onload = function() {
+    new Vue({
+      el: '#editor',
+      data: {
+        input: '',
+      },
+      filters: {
+        marked: marked,
+      },
+    });
+  };
+</script>
+
+<%= f.submit "返信する" ,:class => 'btn btn-default' %><br><br>
+</div>
+  <% end %>
+
+
   <%= link_to '課題一覧へ戻る', issues_path, { :class => "btn btn-primary" } %>
 </div>
