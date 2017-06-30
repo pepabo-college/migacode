@@ -17,7 +17,7 @@ feature 'ページ遷移' do
     create_issue
     visit issues_path
     click_link 'テスト投稿'
-    click_button '課題一覧へ戻る'
+    click_link '課題一覧へ戻る'
 
     expect(page).to have_css('a', text: 'テスト投稿')
   end

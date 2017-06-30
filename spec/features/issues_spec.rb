@@ -12,7 +12,7 @@ feature 'ページ遷移' do
 
   scenario 'コードを投稿からトップページに遷移する' do
     visit new_issue_path
-    click_button '課題一覧へ戻る'
+    click_link '課題一覧に戻る'
 
     expect(page).to have_css('h2', text: '課題一覧')
   end
