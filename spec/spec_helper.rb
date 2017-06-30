@@ -95,4 +95,7 @@ RSpec.configure do |config|
 =end
   require 'factory_girl_rails'
   config.include FactoryGirl::Syntax::Methods
+
+  require "email_spec"
+  require "email_spec/rspec"
 end
