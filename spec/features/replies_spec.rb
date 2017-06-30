@@ -3,7 +3,7 @@ require 'features/features_helper'
 
 feature 'ページ遷移' do
 
-  scenario 'トップページから詳細ページに遷移する' do
+  scenario '課題一覧ページから投稿したコードの詳細ページに遷移する' do
     visit issues_path
     create_issue
     visit issues_path
@@ -12,7 +12,7 @@ feature 'ページ遷移' do
     expect(page).to have_css('h2', text: '課題：テスト投稿')
   end
 
-  scenario 'コードを投稿からトップページに遷移する' do
+  scenario 'コードを投稿ページから課題一覧ページに遷移する' do
     visit issues_path
     create_issue
     visit issues_path
